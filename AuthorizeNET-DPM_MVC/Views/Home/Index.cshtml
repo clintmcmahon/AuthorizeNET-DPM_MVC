@@ -1,0 +1,105 @@
+﻿@model AuthorizeNET_DPM_MVC.Models.DPMModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { @action = Model.PostBackUrl }))
+{
+    <input type='hidden' name='x_cust_id' value="@Model.x_cust_id" />
+    <input type='hidden' name='x_fp_hash' value='@Model.FPHash' />
+    <input type='hidden' name='x_fp_sequence' value='@Model.FPSequence' />
+    <input type='hidden' name='x_invoice_num' value='@Model.InvoiceNumber' />
+    <input type='hidden' name='x_fp_timestamp' value='@Model.FPTimeStamp' />
+    <input type='hidden' name='x_login' value='@Model.Login' />
+    <input type='hidden' name='x_relay_url' value='@Model.RelayUrl' />
+    <input type='hidden' name='x_relay_response' value='@Model.RelayResponse' />
+    <input type='hidden' name='x_receipt_link_url' value='@Model.ReceiptLinkUrl' />
+    <input type='hidden' name='x_test_request' value="@Model.TestRequest" />
+    <input type='hidden' name='x_method' value="CC" />
+    <input type='hidden' name='x_type' value="AUTH_CAPTURE" />
+    <input type='hidden' name='x_amount' value='@Model.Amount' />
+    <input type='hidden' name='x_email' value='@Model.Email' />
+    <input type='hidden' name='x_address' value='not applicable' />
+
+    <div id="loginPage">
+        <fieldset style="width:800px">
+            @Html.ValidationSummary(true, "Please correct the errors and try again.")
+            <h2>Purchase</h2>
+            <h4>Amount Due:&nbsp;$@Model.Amount</h4>
+
+            <div class="editor-label">
+                <h3>
+                    Cardholder information
+                </h3>
+                <p style="text-align:left">
+                    Please complete the form below to submit your payment. We currently accept Visa, Mastercard, American Express and Discover cards.
+                </p>
+            </div>
+            <div class="editor-label">
+                @Html.Label("Cardholder First Name")
+                @Html.ValidationMessageFor(m => m.x_first_name)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.x_first_name)
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Cardholder Last Name")
+                @Html.ValidationMessageFor(m => m.x_last_name)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.x_last_name)
+            </div>
+            <div class="editor-label">
+                @Html.Label("Cardholder Phone Number")
+                @Html.ValidationMessageFor(m => m.x_phone)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.x_phone)
+            </div>
+            <div class="editor-label">
+                @Html.Label("Billing Zip Code")
+                @Html.ValidationMessageFor(m => m.x_zip)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.x_zip)
+            </div>
+            <div class="editor-label">
+                <h3>
+                    Billing information
+                </h3>
+                <hr />
+            </div>
+            <div class="editor-label">
+                @Html.Label("Credit Card Number")
+                @Html.ValidationMessageFor(m => m.x_card_num)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.x_card_num)
+            </div>
+            <div class="editor-label">
+                @Html.Label("Card Expiration Date (MM-YY)")
+                @Html.ValidationMessageFor(m => m.x_exp_date)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.x_exp_date, new { placeholder = "MM-YY" })
+            </div>
+            <div class="editor-label">
+                @Html.Label("Credit CCV Code")
+                @Html.ValidationMessageFor(m => m.x_card_code)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(m => m.x_card_code)
+            </div>
+            <div style="text-align: center;">
+                <input id="btnSubmit" type="submit" value="Complete purchase" />
+            </div>
+            
+        </fieldset>
+    </div>
+
+}
